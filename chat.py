@@ -106,7 +106,7 @@ def receive_message():
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
-    return '<h1> Bienvenido </h1>'
+    return '<h1> Bienvenido Tarne Hijoputa </h1>'
 
 def verify_fb_token(token_sent):
     #take token sent by facebook and verify it matches the verify token you sent

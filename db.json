@@ -1,0 +1,46 @@
+{
+    "ps": ["PlayStation",
+    "USD.    LPS",
+    "10$ - - 315",
+    "20$ - - 570",
+    "25$ - - 700",
+    "50$ - - 1305",
+    "60$ - - 1555",
+    "75$ - - 1925",
+    "100$ - - 2550"],
+    "xbox": [
+        "Xbox Live",
+        "USD.   LPS",
+        "5$ - - 190",
+        "10$ - - 315",
+        "15$ - - 445",
+        "20$ - - 570", 
+        "25$ - - 700",  
+        "50$ - - 1310"
+    ],
+    "nintendo": [
+        "Nintendo eShop",
+        "USD.   LPS",
+        "10$ - - 315",
+        "20$ - - 570",
+        "35$ - - 940",
+        "50$ - - 1310"
+    ],
+    "plus": [
+        "PlayStation Plus",
+        "1 Mes -- 315 Lps",
+        "3 Meses -- 550 Lps",
+        "1 Año -- 1200 Lps"
+    ],
+    "gold": [
+        "Xbox Live Gold",
+        "1 Mes -- 315 Lps",
+        "3 Meses -- 550 Lps",
+        "6 Meses -- 900 Lps",
+        "1 año -- 1310 Lps"
+    ],
+    "about": "Somos una empresa Hondureña especializada en la distribucion de contenido digital.\n\nCon la vision de ser los proveedores #1 de Game Cards, suscripciones y servicios de entretenimiento.\n\nEmpresa completamente Digital, no tenemos local físico.",
+    "payment": "Aceptamos pagos mediante Banco Lafise, Tigo Money y Tengo.\n\nTigo Money y Tengo disponible solamente para compras menores a 600 Lps.\n\nTigo Money sujeto a comision del 6%",
+    "delivery": "Los articulos, a menos que se diga lo contrario, son entregados segundos despues de realizar el pago.\n\nLa velocidad en que recibas los articulos depende de ti!\n\nSi acuerdas una hora de pago, trata de ser puntual",
+    "buy": "Bot en estado Beta, esta opcion sera agregada eventualmente"
+}

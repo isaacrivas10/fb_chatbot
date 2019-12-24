@@ -1,15 +1,17 @@
 # /usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import random
+import os
 import json
 from pprint import pprint
 from flask import Flask, request
 from pymessenger.bot import Bot
 
 app = Flask(__name__)
-ACCESS_TOKEN = 'EAAodZBxHuBjcBABmZB9Xhy7Lb6GuB50NfRZC6NZCNdUdlZBU7Idm2ZAMIqPuJbf4HDRtQO3M56Lbrbx49Lm3cOBHZCNZAtrDjiU40xcP12626yVuVDYRVV1dDClPSjR9d4RpzcZBbTeK2hJ6XT2IedOeBsd56m0libGAEPkWOFfPzCQZDZD'
-VERIFY_TOKEN = 'TESTINGTOKEN'
+#ACCESS_TOKEN = 'EAAodZBxHuBjcBABmZB9Xhy7Lb6GuB50NfRZC6NZCNdUdlZBU7Idm2ZAMIqPuJbf4HDRtQO3M56Lbrbx49Lm3cOBHZCNZAtrDjiU40xcP12626yVuVDYRVV1dDClPSjR9d4RpzcZBbTeK2hJ6XT2IedOeBsd56m0libGAEPkWOFfPzCQZDZD'
+#VERIFY_TOKEN = 'TESTINGTOKEN'
+ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
+VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 bot = Bot(ACCESS_TOKEN)
 
 with open('db.json', 'r') as data:

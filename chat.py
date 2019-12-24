@@ -8,8 +8,6 @@ from flask import Flask, request
 from pymessenger.bot import Bot
 
 app = Flask(__name__)
-#ACCESS_TOKEN = 'EAAodZBxHuBjcBABmZB9Xhy7Lb6GuB50NfRZC6NZCNdUdlZBU7Idm2ZAMIqPuJbf4HDRtQO3M56Lbrbx49Lm3cOBHZCNZAtrDjiU40xcP12626yVuVDYRVV1dDClPSjR9d4RpzcZBbTeK2hJ6XT2IedOeBsd56m0libGAEPkWOFfPzCQZDZD'
-#VERIFY_TOKEN = 'TESTINGTOKEN'
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 VERIFY_TOKEN = os.environ['VERIFY_TOKEN']
 bot = Bot(ACCESS_TOKEN)
@@ -71,7 +69,7 @@ payloads = {
 }
 
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/web/bot", methods=['GET', 'POST'])
 def receive_message():
     print(request)
     if request.method == 'GET':
@@ -106,6 +104,9 @@ def receive_message():
 
     return "Message Processed"
 
+@app.route("/", methods=['GET', 'POST'])
+def home():
+    return '<h1> Bienvenido </h1>'
 
 def verify_fb_token(token_sent):
     #take token sent by facebook and verify it matches the verify token you sent

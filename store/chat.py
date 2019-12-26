@@ -13,6 +13,8 @@ intro= """
 Estado: En desarrollo
 Version: Beta v0.1
 
+Muchas gracias por utilizar nuestro Bot, si crees que le hace falta algo que podriamos agregar hazlo saber, tu opinion es importante.
+
 Escribe /Ayuda para saber mas sobre el bot.
 """
 help1= """
@@ -80,7 +82,6 @@ class BotManagement:
 
     def event_handler(self, payload):
         p= payloads[payload]
-
         if isinstance(p, list):
             text= 'Selecciona una opcion:' 
             self.sendButton(text, payloads[payload])

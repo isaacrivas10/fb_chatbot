@@ -1,7 +1,7 @@
 
 from flask import request, render_template
 from store import app
-from store.forms import LoginForm, RegistrationForm
+#from store.forms import LoginForm, RegistrationForm
 from store.chat import BotManagement, payloads, help1
 from pprint import pprint
 

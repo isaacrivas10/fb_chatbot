@@ -1,7 +1,7 @@
 
 from flask import request, render_template
 from store import app
-from store.chat import BotManagement, payloads
+from store.chat import BotManagement, payloads, help1
 from pprint import pprint
 
 Bot= BotManagement()
@@ -37,7 +37,7 @@ def bot():
                         if item['message']['text'] == 'Comenzar':            
                             Bot.turnON(payloads['main'])
                         elif item['message']['text'] == '/Ayuda':
-                            Bot.sendMessage(help)
+                            Bot.sendMessage(help1)
                         else:
                             if item['message']['text'][0] == "/":
                                 Bot.cmd(item['message']['text'][1:])

@@ -15,7 +15,7 @@ Version: Beta v0.1
 
 Escribe /Ayuda para saber mas sobre el bot.
 """
-help= """
+help1= """
 El Bot esta diseñado para brindar informacion solamente, si desea comprar por favor dejar su mensaje claro y no usar el bot (La funcion de compra se añadira proximante).
 
 Comandos [Atajos hacia contenidos especificos]:
@@ -63,8 +63,6 @@ payloads = {
 class BotManagement:
 
     id= None
-
-    #def __init__(self):
 
     def verify_fb_token(self, token_sent):
         if token_sent == VERIFY_TOKEN:

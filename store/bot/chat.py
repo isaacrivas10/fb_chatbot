@@ -1,10 +1,10 @@
 
 import json
-from flask import request
-from store import bot
+from flask import request, render_template
+from store import bot_handler
 from store import VERIFY_TOKEN
 
-with open('store/db.json', 'r') as data:
+with open('store/bot/db.json', 'r') as data:
     raw_data= data.read()
 
 db = json.loads(raw_data)
@@ -15,10 +15,12 @@ Version: Beta v0.1
 
 Muchas gracias por utilizar nuestro Bot, si crees que le hace falta algo que podriamos agregar hazlo saber, tu opinion es importante.
 
-Escribe /Ayuda para saber mas sobre el bot.
+Selecciona Ayuda en el menu para saber mas sobre el bot.
 """
 help1= """
-El Bot esta diseñado para brindar informacion solamente, si desea comprar por favor dejar su mensaje claro y no usar el bot (La funcion de compra se añadira proximante).
+El Bot esta diseñado para brindar informacion solamente, si desea comprar por favor dejar su mensaje claro y no usar el bot.
+
+La funcion de compra se añadira proximante.
 
 Comandos [Atajos hacia contenidos especificos]:
     /playstation
@@ -63,21 +65,21 @@ payloads = {
 }
 
 class BotManagement:
-
+    
     id= None
 
     def verify_fb_token(self, token_sent):
         if token_sent == VERIFY_TOKEN:
             return request.args.get("hub.challenge")
-        return 'Invalid verification token'
+        return render_template('bot.html', title="Bot Admin")
 
     def sendMessage(self, response):
         #sends user the text message provided via input response parameter
-        bot.send_text_message(self.id, response)
+        bot_handler.send_text_message(self.id, response)
         return "success"
 
     def sendButton(self, text, buttons):
-        bot.send_button_message(self.id,text, buttons)  
+        bot_handler.send_button_message(self.id,text, buttons)  
         return "success"
 
     def event_handler(self, payload):

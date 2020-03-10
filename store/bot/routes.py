@@ -1,32 +1,14 @@
 
-from flask import request, render_template
-from store import app
-#from store.forms import LoginForm, RegistrationForm
-from store.chat import BotManagement, payloads, help1
+from flask import Blueprint, request
+from store.bot.chat import BotManagement, payloads, help1
 from pprint import pprint
 
 Bot= BotManagement()
 
-@app.route("/", methods=['GET', 'POST'])
-def home():
-    return render_template('index.html', show=True)
+bot= Blueprint('bot', __name__)
 
-@app.route("/login", methods=['GET', 'POST'])
-def login():
-    form= LoginForm()
-    return render_template('form.html', title='Login', form=form)
-
-@app.route("/register", methods=['GET', 'POST'])
-def register():
-    form= LoginForm()
-    return render_template('form.html', title='Register', form=form)
-
-@app.route("/privacy_policy", methods=['GET'])
-def privacy_policy():
-    return render_template('privacy_policy.html', title='Privacy Policy')
-
-@app.route("/web/bot", methods=['GET', 'POST'])
-def bot():
+@bot.route("/web/bot", methods=['GET', 'POST'])
+def bot_handler():
     print(request)
     if request.method == 'GET':
         token_sent = request.args.get("hub.verify_token")

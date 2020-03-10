@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    
+    <main class="container" role="main">
+        <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded shadow-sm">
+            <div class="lh-100">
+            <h6 class="mb-0 text-white lh-100">Bot Commnads</h6>
+            </div>
+        </div>
+        <div class="nav-scroller bg-white shadow-sm p-2">
+            <nav class="nav nav-underline">
+                <a class="nav-link active" href="#">Show All</a>
+                <a class="nav-link" href="#">Create</a> 
+                <a class="nav-link" href="#">Delete</a>
+                <a class="nav-link" href="#">Edit</a>
+            </nav>
+        </div>
+        <div id="canvas" class="my-3 p-2 bg-white rounded shadow-sm">
+            
+        </div>
+    </main>
+
+{% endblock main %}
+
+{% block js %}
+    <script>
+        (()=>{$('body').addClass('bg-light')})();
+    </script>
+{% endblock js %}    

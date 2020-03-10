@@ -1,31 +1,94 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    {% if title%}
-        <title>Honduras Digital Store - {{ title }}</title>
+    {% if title %}
+      <title>{{title}}</title>
     {% else %}
-        <title>Honduras Digital Store</title>
+      <title>Honduras Digital Store</title>
     {% endif %}
+    
+    <!-- Font Awesome Icon -->
+    <link rel="stylesheet" href="../static/css/font-awesome.min.css">
+    
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
-  </head>
-  <body>
-    <div class="container-fluid">
-        {% block body %} {% endblock %}
+    <!-- Custom CSS-->
+    <link rel="stylesheet" href="../static/css/main.css">
+    {% block css %}
+    {% endblock css%}
+
+    <!-- Google font -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+
+</head>
+<body>
+  {% if show %}
+  <!--- Navbar -->
+  <nav class="navbar navbar-expand-md sticky-top navbar-dark bg-dark nav-pad">
+    <div class="container">
+        <a class="navbar-brand mr-0" href="#"><img src="..static/img/demo/logo.resized.jpeg"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto px-3">
+                <li class="nav-item">
+                  <a href=" {{ url_for('main.home') }} " class="nav-link active btn">Home</a>
+                </li>
+                <li id="btn-login" class="nav-item">
+                  <a href=" {{ url_for('users.login') }} " class="nav-link btn">Iniciar Sesión</a>
+                </li>
+                <li id="btn-signin" class="nav-item">
+                  <a href=" {{ url_for('users.register') }} " class="nav-link btn">Registrarse</a>
+                </li>
+                <li id="btn-profile" class="nav-item invisible">
+                  <a href=" {{ url_for('users.dashboard') }} " class="nav-link btn">Dashboard</a>
+                </li>
+                <li id="btn-logout" class="nav-item invisible">
+                  <a href="{{ url_for('users.logout') }}" class="nav-link btn">Cerrar Sesión</a>
+                </li>
+                <li class="nav-item">
+                  <a href="help.html" class="nav-link btn">Ayuda</a>
+                </li>
+            </ul>
+        </div>
     </div>
+  </nav>
+  <!--/Navbar-->
+{% endif %}
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  {% block main %}
+  {% endblock main%}
+
+{% if show %}
+  <!-- Footer -->
+  <footer class="py-5 bg-dark">
+    <div class="container">
+      <p class="m-0 text-white text-center">Copyright &copy; Isaac D. Rivas 2019</p>
+        <ul class="header-links text-center">
+            <li><a href="#"><i class="fa fa-phone"></i> +(504) XXXX-XXXX</a></li>
+            <li><a href="#"><i class="fa fa-envelope-o"></i> email@email.com</a></li>
+            <li><a href="#"><i class="fa fa-map-marker"></i> UNAH</a></li>
+        </ul>
+    </div>
+    <!-- /.container -->
+  </footer>
+  <!-- /Footer -->
+{% endif %}
+    <!-- JS Dependencies-->
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  </body>
+    <script>
+      $(function () {
+          $('[data-toggle="tooltip"]').tooltip();
+      })
+    </script>
+    {% block js %}
+    {% endblock js %}
+</body>
 </html>

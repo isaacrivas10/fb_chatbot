@@ -1,0 +1,299 @@
+
+{% extends 'layout.html' %}
+
+{% block css %}
+  <link rel="stylesheet" href="../static/css/dashboard.css">
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/6149b387e0.js" crossorigin="anonymous"></script>
+{% endblock css %}
+
+
+{%block main%}
+<!--
+<div id="loading" class="bg_load">
+    <div class="centered text-success">
+      <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div class="centered text-danger text-center invisible">
+      <h5>Your are not logged in</h5>
+    </div>
+</div>
+-->
+
+<body>
+
+    <div class="page-wrapper chiller-theme toggled">
+      <a id="show-sidebar" class="btn btn-sm btn-dark" href="#">
+          <i class="fas fa-bars"></i>
+      </a>
+    <!-- Navbar-->
+    <nav id="sidebar" class="sidebar-wrapper">
+      <div class="sidebar-content">
+        <div class="sidebar-brand">
+          <a href="#">Profile Dashboard</a>
+          <div id="close-sidebar">
+              <i class="fas fa-times"></i>
+          </div>
+        </div>
+
+        <!-- Header  -->
+        <div class="sidebar-header">
+          <div class="user-pic">
+            <img id="usr-pic" class="img-responsive img-rounded img-fluid"
+              alt="User picture">
+          </div>
+          <div class="user-info">
+            <span class="user-name">
+              <strong id="userName"></strong>
+            </span>
+            <span class="user-role" id="role"></span>
+            <span class="user-status">
+              <i class="fa fa-circle"></i>
+              <span>Online</span>
+            </span>
+          </div>
+        </div>
+        <!-- /Header  -->
+
+        <!-- Search  -->
+        <div class="sidebar-search">
+          <div>
+            <div class="input-group">
+              <input type="text" class="form-control search-menu" placeholder="Search...">
+              <div class="input-group-append">
+                <span class="input-group-text">
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /Search  -->
+
+        <!-- Menu-->
+        <div class="sidebar-menu">
+          <ul>
+            <li class="header-menu">
+              <span>General</span>
+            </li>
+            <li>
+              <a onclick="load.profileDashboard()" href="#">
+                <i class="fa fa-tachometer-alt"></i>
+                <span>Dashboard</span>
+                <span class="badge badge-pill badge-warning">New</span>
+              </a>
+            </li>
+            <li id='ecommerce' class="sidebar-dropdown">
+              <a href="#">
+                <i class="fa fa-shopping-cart"></i>
+                <span>E-commerce</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li id="prd">
+                    <a href="{{ url_for('logic.products') }}">Products<span class="badge badge-pill badge-danger">10</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a href="{{ url_for('logic.orders') }}">Orders</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li id='components' class="sidebar-dropdown">
+              <a href="#">
+                <i class="far fa-gem"></i>
+                <span>Components</span>
+              </a>
+              <div class="sidebar-submenu">
+                <ul>
+                  <li>
+                    <a href="#">General</a>
+                  </li>
+                  <li>
+                    <a href="#">Panels</a>
+                  </li>
+                  <li>
+                    <a href="#">Tables</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="header-menu">
+              <span>Extra</span>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fa fa-book"></i>
+                <span>Documentation</span>
+                <span class="badge badge-pill badge-primary">Beta</span>
+              </a>
+            </li>
+            <li>
+              <a href="#">
+                <i class="fa fa-calendar"></i>
+                <span>Calendar</span>
+              </a>
+            </li>
+            <li>
+              <a href=" {{ url_for('main.home') }} ">
+                <i class="fas fa-store"></i>
+                <span>Go to Store</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <!-- sidebar-menu  -->
+      </div>
+      <!-- sidebar-content  -->
+      <div class="sidebar-footer" style="padding-top: 5px;">
+        <a href="#">
+          <i class="fa fa-bell"></i>
+          <span class="badge badge-pill badge-warning notification">3</span>
+        </a>
+        <a href="#">
+          <i class="fa fa-envelope"></i>
+          <span class="badge badge-pill badge-success notification">7</span>
+        </a>
+        <a onclick='load.configuration()' href="#">
+          <i class="fa fa-cog"></i>
+          <span class="badge-sonar"></span>
+        </a>
+        <a data-toggle="modal" data-target="#logoutModal" href="#">
+          <i class="fa fa-power-off"></i>
+        </a>
+      </div>
+    </nav>
+  <!-- /Navbar-->
+
+  <!-- Main-->
+  <main class="page-content">
+    <div class="container-fuild">
+      <!-- Este Div se modificara dinamicamente-->
+      <div id="main-profile" class="col-12 px-0">
+        {% block dashboard %}
+        {% endblock dashboard %}
+      </div>
+    </div>
+  </main>
+  <!-- /Main-->
+
+</div>
+<!-- /Wrapper -->
+
+  <!-- Logout Modal-->
+  <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="logoutModalLabel">Ready to Leave?</h5>
+          <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+          <a class="btn btn-primary" href="{{ url_for('users.logout') }}">Logout</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Logout Modal-->
+
+  <!-- Product Modal 
+  <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="productModalLabel">Product</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form id='productForm'class='needs-validation'>
+            <div class="form-row mb-3">
+              <div class="col-4 w-50 h-50 text-center">
+                <img id='product-img' name='product-img' src="" alt="product img" class="img-fluid">
+              </div>
+              <div class="col-8 input-group mb-3">
+                <div class="custom-file">
+                  <input type="file" class="custom-file-input" id="productBtn" name="productBtn" aria-describedby="productBtn" required/>
+                  <label class="custom-file-label" for="productBtn">Image</label>
+                  <div class="invalid-feedback">Please choose an image</div>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-5 mb-3">
+                <label for="name">Product Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Product Name" required>
+                <div class="invalid-feedback">A name is needed</div>
+              </div>                
+              <div class="col-md-7 form-group">
+                <label for="category">Category</label>
+                <select id="category" name="category" class="custom-select" required>
+                  <option value="">Product Category</option>                  
+                </select>
+                <div class="invalid-feedback">Please select a category for your product</div>
+              </div>
+            </div>
+            <div class="form-row mb-3">
+              <div class="col-md-3 col-sm-4 form-group">
+                <label for="price">Price</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">$</span>
+                  </div>
+                  <input type="number" min="1" max="99999" class="form-control" id="price" name="price" placeholder="Price" aria-describedby="productPricePrepend" required>
+                </div>
+              </div>
+              <div class="col-md-5 col-sm-8 form-group">
+                <label for="discount">Discount</label>
+                <select id="discount" name="discount" class="custom-select" required>
+                  <option value="">Product discount</option>
+                  <option value=.1>10%</option>
+                  <option value=.2>20%</option>
+                  <option value=.3>30%</option>
+                  <option value=.4>40%</option>
+                  <option value=.5>50%</option>
+                  <option value=.6>60%</option>
+                  <option value=.7>70%</option>
+                  <option value=.8>80%</option>
+                </select>
+              </div>
+              <div class="col-md-4 form-group">
+                <label for="status">Product Status</label>
+                <select id="status" name="status" class="custom-select" required>
+                  <option value="">Status</option>
+                  <option value="1">USED</option>
+                  <option value="2">HALF USED</option>
+                  <option value="3">LIKE NEW</option>
+                  <option value="4">NEW</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="description">Write a brief description of your product</label>
+              <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+            </div>
+          </form>    
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button id="modal-btn" type="submit" form='productForm' class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+/Product Modal -->
+
+{% endblock main %}
+
+{% block js %}
+  <script src="../static/js/profile/profile-controller.js"></script>
+  
+{% endblock js %}

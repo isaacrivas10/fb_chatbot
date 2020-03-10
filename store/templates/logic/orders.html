@@ -1,0 +1,31 @@
+{% extends 'dashboard.html' %}
+
+{% block dashboard %}
+    <div class="d-flex align-items-center p-3 my-3 text-white-50 bg-dark rounded shadow-sm">
+        <div class="lh-100">
+        <h6 class="mb-0 text-white lh-100">Sketched Orders</h6>
+        </div>
+    </div>
+    <div id="orders" class="my-3 p-3 bg-white rounded shadow-sm">
+        <h6 class="border-bottom border-gray pb-2 mb-0">Recent Orders</h6>
+        {% for i in range(0,10) %}
+            <div class="media text-muted pt-3">
+                <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <p>
+                <strong class="text-gray-dark">@username </strong>bought a product: <br>
+                    &nbsp;&nbsp;<strong class="text-gray-dark">Product Name: </strong>name <br>
+                    &nbsp;&nbsp;<strong class="text-gray-dark">Quantity: </strong>number <br>
+                    &nbsp;&nbsp;<strong class="text-gray-dark">Total: </strong>total <br>
+                </p>
+                <small class="d-block text-right mt-3">
+                    <a href="">Complete Details</a>
+                </small>
+                </div>
+            </div>
+        {% endfor %}
+        <small class="text-right mt-3">
+            <p>Last</p>
+        </small>
+    </div>
+
+{% endblock dashboard %}

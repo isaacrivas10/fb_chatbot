@@ -1,0 +1,149 @@
+{% extends "form_layout.html" %}
+
+{% block form %}
+
+<div id="signupForm" class="invisible">
+    <form class="forms" method="POST" action="">
+
+        {{ form.hidden_tag() }}
+
+        <div class="text-center mb-4">
+            <h1 class="h3 mb-3 font-weight-normal">
+                Registro
+            </h1>
+            <p>Nueva cuenta, nuevas posibilidades!</p>
+        </div>
+        
+        <fieldset class="container">
+
+            <div class="input-group form-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-user"></i>
+                    </span>
+                </div>
+                {% if form.email.errors %}
+                    {{ form.firstName(class="form-control w-25 is-invalid", placeholder="Nombre") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.firstName.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.firstName(class="form-control w-25", placeholder="Nombre") }}
+                {% endif %}
+                {% if form.email.errors %}
+                    {{ form.lastName(class="form-control w-25 is-invalid", placeholder="Apellido") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.lastName.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.lastName(class="form-control w-25", placeholder="Apellido") }}
+                {% endif %}
+            </div>
+            <div class="input-group form-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-envelope"></i>
+                    </span>
+                </div>                
+
+                {% if form.email.errors %}
+                    {{ form.email(class="form-control is-invalid", placeholder="Email") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email(class="form-control", placeholder="Email") }}
+                {% endif %}
+
+            </div>
+            <div class="input-group form-group">
+                <div class="input-group-prepend w-100">
+                    <span class="input-group-text">
+                         <i class="fa fa-phone"></i>
+                    </span>
+                    <input style="width: 100%;" type="tel" id="_phone">
+                </div>
+                    {% if form.phone.errors %}
+                    {{ form.phone(class="is-invalid") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.phone.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                    {% else %}
+                        
+{{ form.phone()}}
+                    {% endif %}
+            </div>
+            <div class="input-group form-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </div>
+                {% if form.password.errors %}
+                    {{ form.password(class="form-control is-invalid", placeholder="Contraseña") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.password(class="form-control",placeholder="Contraseña") }}
+                {% endif %}
+                
+            </div>
+            <div class="input-group form-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text">
+                        <i class="fa fa-lock"></i>
+                    </span>
+                </div>
+                {% if form.confirm_password.errors %}
+                    {{ form.confirm_password(class="form-control is-invalid", placeholder="Confirmar Contraseña") }}
+                    <div class="invalid-feedback">
+                        {% for error in form.confirm_password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.confirm_password(class="form-control",placeholder="Confirmar contraseña") }}
+                {% endif %}
+                
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-lg btn-primary btn-block") }}
+        </div>
+        <p class="text-center">Tienes una cuenta? <a href=" {{ url_for('users.login') }} ">Inicia sesion</a></p>
+    </form>
+</div>
+
+{% endblock form %}
+
+{% block formjs %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.8/js/intlTelInput.js"></script>
+    <script>
+        var wtf_phone_field = document.getElementById('phone');
+        wtf_phone_field.style.position = 'absolute';
+        wtf_phone_field.style.top = '-9999px';
+        wtf_phone_field.style.left = '-9999px';
+        var fancy_phone_field = document.getElementById('_phone');
+        var fancy_phone_iti = 
+        window.intlTelInput(fancy_phone_field, {
+            separateDialCode: true,
+            initialCountry: "{{ geo.country }}",
+            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.8/js/utils.js"
+        });
+        fancy_phone_iti.setNumber(wtf_phone_field.value);
+        fancy_phone_field.addEventListener('blur', function() {
+            wtf_phone_field.value = fancy_phone_iti.getNumber();
+        });
+    </script>
+{% endblock formjs %}

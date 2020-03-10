@@ -1,0 +1,46 @@
+
+{% extends "layout.html" %}
+
+{% block css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.8/css/intlTelInput.css">
+
+    <link rel="stylesheet" href="../static/css/forms.css">
+{% endblock css %}
+
+{% block main %}
+
+    <main class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 text-center expanded">
+                <h1>
+                    <a href="{{ url_for('main.home')}}">Honduras Digital Store</a>
+                </h1>
+            </div>
+        </div>
+
+        <div class="col-lg-12">
+            {% with messages= get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category,message in message%}
+                    <div class="alert alert-{{ category }} collapse">
+                        {{ message }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+
+        {%block form %}
+        {% endblock form%}
+
+    </main>
+
+
+{% endblock main %}
+
+{% block js %}
+    <script src="../static/js/form_controller.js"></script>
+    {% block formjs %}
+    {% endblock formjs %}
+    
+{% endblock js %}

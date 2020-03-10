@@ -1,0 +1,179 @@
+{% extends 'dashboard.html' %}
+
+{% block dashboard %}
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+    <div class=" d-flex flex-row border-bottom border-gray pb-0 mb-3">
+        <h6 class="">Todos Mis Productos</h6>
+        <small class="ml-auto">
+            <a href="#" data-toggle="modal" data-target="#productModal">Nuevo Producto</a>
+        </small>
+    </div>
+    <div id="products" class="row mb-2"></div>
+
+    <div class="modal fade" id='productModal' tabindex="-1" role="dialog" aria-labelledby="productModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productModalLabel">
+                        Producto
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="" enctype="multipart/form-data">
+
+                        {{ form.hidden_tag() }}
+
+                        <div class="form-row mb-3">
+                            <div class="col-12" >
+                                <div id="img-carousel" class="carousel slide" data-ride="carousel">
+                                    <div id='img-selection' class="carousel-inner">
+                                    </div>
+                                    <a class="carousel-control-prev" href="#img-carousel" role="button" data-slide="prev">
+                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Previous</span>
+                                    </a>
+                                    <a class="carousel-control-next" href="#img-carousel" role="button" data-slide="next">
+                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                        <span class="sr-only">Next</span>
+                                    </a>
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="form-row mb-3">
+                            <div class="col input-group mb-3">
+                                <div class="custom-file">
+                                    {{ form.imgs(class="custom-file-input") }}
+                                    {{ form.imgs.label(class="custom-file-label")
+                                    }}
+                                </div>
+                            </div> 
+                        </div>
+                        <div class="form-row mb-3">
+                            <div class="col-md-12 mb-3 ">
+                                {{ form.name.label() }}
+                                {{ form.name(class="form-control") }}
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                {{ form.category.label() }}
+                                {{ form.category(class="custom-select") }}
+                            </div>
+                            <div class="col-md-6 col-sm-6">
+                                {{ form.brand.label() }}
+                                {{ form.brand(class="custom-select") }}
+                            </div>
+                        </div>
+                        <div class="form-row mb-3">
+                            <div class="col-md-4 col-sm-6 form-group">
+                                {{ form.price.label() }}
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">HNL</span>
+                                    </div>
+                                    {{ form.price(class='form-control', placeholder='Precio') }}
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                {{ form.productStatus.label() }}
+                                {{ form.productStatus(class="custom-select") }}
+                            </div>
+                            <div class="col-md-4">
+                                {{ form.delivery.label() }}
+                                {{ form.delivery(class="custom-select") }}
+                            </div>
+                        </div>
+                        <div class="invisible form-row mb-3">
+                            <div class=" col-md-6 col-sm-4 form-group">
+                                {{ form.discount.label() }}
+                                {{ form.discount(class='form-control') }}
+                            </div>
+                            <div class="invisible col-md-6 col-sm-4 form-group">
+                                {{ form.discount_price.label() }}
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">HNL</span>
+                                    </div>
+                                    {{ form.discount_price(class='form-control', placeholder='Descuento', **{'title': 'Ingresa el Precio de Descuento', 'data-toggle': 'tooltip', 'data-placement': 'bottom'}) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                {{ form.description.label() }}
+                                {{ form.description(class='form-control') }}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    {{ form.save(class='btn btn-primary') }}
+                  </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+
+    function deleteMe(node, e){
+        if (node.parentNode.firstElementChild){
+            node.parentNode.firstElementChild.classList.add('active');
+        }
+        node.remove();
+        $('#imgs')[0].files.splice(e, 1);
+    }
+
+    function handleFileSelect(evt) {
+        
+        var files = evt.target.files;
+
+        // Loop through the FileList and render image files as thumbnails.
+
+        var imgs= $('#img-selection')
+        imgs.empty()
+
+        for (var i = 0, f; f = files[i]; i++) {
+            
+            var reader = new FileReader();
+
+            if (!f.type.match('image.*')) {
+                continue;
+            }
+            
+            // Closure to capture the file information.
+            reader.onload = (function(theFile) {
+                var a= i;
+                return function(e) {
+                    
+                // Render thumbnail.                
+                imgs.append( 
+                [
+                    '<div onclick="deleteMe(this,',a,')" data-toggle="tooltip" title="Tocame para eliminarme" data-placement="top" class="carousel-item" >',
+                    '<img  class="d-block w-100" src="', 
+                    e.target.result,
+                    '" title="', escape(theFile.name), 
+                    '"/>','</div>'
+                ].join(''));
+                };
+            })(f);
+
+            // Read in the image file as a data URL.
+            reader.readAsDataURL(f);
+            }
+        setTimeout(
+            ()=>{
+                document.getElementById('img-selection').firstElementChild.classList.add('active');
+                $('[data-toggle="tooltip"]').tooltip();
+            }, 500
+        )
+    }
+
+    document.getElementById('imgs').addEventListener('change', handleFileSelect, false);
+
+
+</script>
+
+
+{% endblock dashboard %}

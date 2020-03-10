@@ -1,0 +1,58 @@
+{% extends "form_layout.html" %}
+
+{% block form %}
+<div id="loginForm" class="invisible">
+    <form class="forms" method="POST" action="">
+
+        {{ form.hidden_tag() }}
+
+        <div class="text-center mb-4">
+            <h1 class="h3 mb-3 font-weight-normal">
+                Iniciar Sesion
+            </h1>
+            <p>Primero lo primero, inicia sesion!</p>
+        </div>
+        
+        <fieldset class="form-group">
+            <div class="form-label-group">
+                {% if form.email.errors %}
+                    {{ form.email(class="form-control is-invalid", id='logEmail', placeholder='Email') }}
+                    <label for="logEmail">Email</label>
+                    <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.email(class="form-control", id='logEmail', placeholder='Email') }}
+                    <label for="logEmail">Email</label>
+                {% endif %}
+                
+                
+            </div>
+            <div class="form-label-group">
+                {% if form.password.errors %}
+                    {{ form.password(class="form-control is-invalid", id='logPass', placeholder='Contraseña') }}
+                    <div class="invalid-feedback">
+                        {% for error in form.password.errors %}
+                            <span>{{ error }}</span>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    {{ form.password(class="form-control", id='logPass', placeholder='Contraseña') }}
+                    <label for="logPass">Contraseña</label>
+                {% endif %}
+            </div>
+            <div>
+                {{ form.remember.label(class="") }}
+                {{ form.remember() }}
+            </div>
+        </fieldset>
+        <div class="form-group">
+            {{ form.submit(class="btn btn-lg btn-primary btn-block") }}
+        </div>
+        <p class="text-center text-muted">Eres nuevo? <a href=" {{ url_for('users.register') }} ">Registrate!</a></p>
+    </form>
+</div>
+{% endblock form %}
+
